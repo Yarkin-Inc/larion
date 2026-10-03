@@ -2,10 +2,15 @@
 import json, zipfile, hashlib, tomllib
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
+properties=dict(line.strip().split('=',1) for line in (root/'gradle.properties').read_text().splitlines()
+                if line.strip() and not line.lstrip().startswith('#'))
+minecraft_version=properties['minecraft_version']
+version=f"{properties['mod_version']}+{minecraft_version}"
 reference=None
 for loader in ('fabric','neoforge','forge'):
     jars=[p for p in (root/loader/'build/libs').glob('*.jar') if not p.name.endswith('-sources.jar')]
     assert len(jars)==1,(loader,jars)
+    assert jars[0].name==f"{properties['mod_id']}-{loader}-{version}.jar",jars[0].name
     with zipfile.ZipFile(jars[0]) as z:
         names=z.namelist();assert len(names)==len(set(names)), 'Duplicate entries'
         assert 'LICENSE_larion' in names
@@ -23,11 +28,15 @@ for loader in ('fabric','neoforge','forge'):
         assert (dim['min_y'],dim['height'],dim['logical_height'])==(-128,640,640)
         assert dim['attributes']['minecraft:visual/fog_color']=='#c0d8ff'
         if loader=='fabric':
-            m=json.loads(z.read('fabric.mod.json'));assert m['depends']['minecraft']=='26.1.2'
+            m=json.loads(z.read('fabric.mod.json'));assert m['depends']['minecraft']==properties['minecraft_version_range_fabric']
+            assert m['version']==version
             assert z.read('larion.accesswidener').startswith(b'accessWidener v2 official')
         else:
             meta='META-INF/'+('mods.toml' if loader=='forge' else 'neoforge.mods.toml')
             m=tomllib.loads(z.read(meta).decode());assert m['mods'][0]['modId']=='larion'
+            assert m['mods'][0]['version']==version
+            dependency=next(d for d in m['dependencies']['larion'] if d['modId']=='minecraft')
+            assert dependency['versionRange']==properties['minecraft_version_range']
             assert 'META-INF/accesstransformer.cfg' in names
             assert 'larion.accesswidener' not in names
             if loader=='forge':assert b'MixinConfigs: larion.mixins.json' in z.read('META-INF/MANIFEST.MF')

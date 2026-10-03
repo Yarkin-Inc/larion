@@ -1,3 +1,5 @@
+version = "${mod_version}+${minecraft_version}"
+
 tasks.register('collectJars', Copy) {
     subprojects.each { p ->
         dependsOn("${p.path}:jar")
