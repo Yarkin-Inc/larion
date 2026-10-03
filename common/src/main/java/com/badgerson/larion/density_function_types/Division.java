@@ -51,14 +51,40 @@ public record Division(DensityFunction argument1, DensityFunction argument2) imp
 
     @Override
     public double minValue() {
-        if (this.argument2.minValue() == 0) return 0;
-        return this.argument1.minValue() / this.argument2.minValue();
+        return bound(false);
     }
 
     @Override
     public double maxValue() {
-        if (this.argument2.maxValue() == 0) return 0;
-        return this.argument1.maxValue() / this.argument2.maxValue();
+        return bound(true);
+    }
+
+    private double bound(boolean upper) {
+        double aMin = argument1.minValue();
+        double aMax = argument1.maxValue();
+        double bMin = argument2.minValue();
+        double bMax = argument2.maxValue();
+        double fallback = upper ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
+
+        // compute() explicitly returns zero for a zero divisor.
+        if (bMin == 0.0 && bMax == 0.0) {
+            return 0.0;
+        }
+        // Intervals crossing zero may produce arbitrarily large quotients.
+        // Non-finite input bounds cannot safely be handled by endpoint division.
+        if (!Double.isFinite(aMin) || !Double.isFinite(aMax)
+                || !Double.isFinite(bMin) || !Double.isFinite(bMax)
+                || (bMin <= 0.0 && bMax >= 0.0)) {
+            return fallback;
+        }
+
+        double q1 = aMin / bMin;
+        double q2 = aMin / bMax;
+        double q3 = aMax / bMin;
+        double q4 = aMax / bMax;
+        return upper
+                ? Math.max(Math.max(q1, q2), Math.max(q3, q4))
+                : Math.min(Math.min(q1, q2), Math.min(q3, q4));
     }
 
     @Override

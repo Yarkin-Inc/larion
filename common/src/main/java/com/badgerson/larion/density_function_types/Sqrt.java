@@ -33,12 +33,12 @@ public record Sqrt(DensityFunction df) implements DensityFunctions.PureTransform
 
     @Override
     public double minValue() {
-        return Math.min(0, Math.sqrt(this.df.minValue()));
+        return transform(this.df.minValue());
     }
 
     @Override
     public double maxValue() {
-        return Math.max(0, Math.sqrt(this.df.maxValue()));
+        return transform(this.df.maxValue());
     }
 
     @Override
