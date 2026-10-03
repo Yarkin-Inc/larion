@@ -5,14 +5,14 @@
   "name": "${mod_name}",
   "description": "${description}",
   "authors": [
+    "Badgerson",
     "${mod_author}"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/ViciousBadger/larion-world-generation",
+    "sources": "https://github.com/ViciousBadger/larion-world-generation"
   },
   "license": "${license}",
-  "icon": "${mod_id}.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -29,8 +29,5 @@
     "fabric-api": "*",
     "minecraft": "${minecraft_version_range_fabric}",
     "java": ">=${java_version}"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }

@@ -1,39 +1,11 @@
-plugins {
-    id 'multiloader-loader'
-    id 'net.neoforged.moddev'
-}
-
+plugins { id 'net.neoforged.moddev' version '2.0.141' }
+apply from: rootProject.file('gradle/loader-common.gradle')
 neoForge {
     version = neoforge_version
-    // Automatically enable neoforge AccessTransformers if the file exists
-    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
-    if (at.exists()) {
-        accessTransformers.from(at.absolutePath)
-    }
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
-    }
+    accessTransformers.from(file('src/main/resources/META-INF/accesstransformer.cfg'))
     runs {
-        configureEach {
-            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
-            ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
-        }
-        client {
-            client()
-        }
-        data {
-            clientData()
-        }
-        server {
-            server()
-        }
+        client { client(); gameDirectory = file('run/client') }
+        server { server(); gameDirectory = file('run/server'); programArgument 'nogui' }
     }
-    mods {
-        "${mod_id}" {
-            sourceSet sourceSets.main
-        }
-    }
+    mods { larion { sourceSet sourceSets.main } }
 }
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }

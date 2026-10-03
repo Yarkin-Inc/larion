@@ -6,11 +6,9 @@ import net.minecraft.world.level.levelgen.SurfaceRules.ConditionSource;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import com.badgerson.larion.density_function_types.*;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 
 @Mod(Constants.MOD_ID)
@@ -62,13 +60,13 @@ public class LarionMod {
 				return SomewhatSteepMaterialCondition.CODEC.codec();
 			});
 
-	public LarionMod() {
+	public LarionMod(FMLJavaModLoadingContext context) {
 		// This method is invoked by the Forge mod loader when it is ready
 		// to load your mod. You can access Forge and Common code in this
 		// project.
 
-		DENSITY_FUNCTION_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
-		MATERIAL_CONDITIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		DENSITY_FUNCTION_TYPES.register(context.getModBusGroup());
+		MATERIAL_CONDITIONS.register(context.getModBusGroup());
 
 		// Use Forge to bootstrap the Common mod.
 		CommonClass.init();

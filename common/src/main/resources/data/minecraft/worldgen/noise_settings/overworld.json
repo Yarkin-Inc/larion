@@ -64,57 +64,6 @@
         "y_scale": 0.7142857142857143
       }
     },
-    "initial_density_without_jaggedness": {
-      "type": "minecraft:add",
-      "argument1": 0.1171875,
-      "argument2": {
-        "type": "minecraft:mul",
-        "argument1": {
-          "type": "minecraft:y_clamped_gradient",
-          "from_value": 0.0,
-          "from_y": -128,
-          "to_value": 1.0,
-          "to_y": -104
-        },
-        "argument2": {
-          "type": "minecraft:add",
-          "argument1": -0.1171875,
-          "argument2": {
-            "type": "minecraft:add",
-            "argument1": -0.078125,
-            "argument2": {
-              "type": "minecraft:mul",
-              "argument1": {
-                "note": "Modified for Larion - allows terrain height to go above vanilla limits.",
-                "type": "minecraft:y_clamped_gradient",
-                "from_value": 1.0,
-                "from_y": 500,
-                "to_value": 0.0,
-                "to_y": 512
-              },
-              "argument2": {
-                "type": "minecraft:add",
-                "argument1": 0.078125,
-                "argument2": {
-                  "type": "minecraft:clamp",
-                  "input": {
-                    "type": "minecraft:add",
-                    "argument1": -0.129137,
-                    "argument2": {
-                      "type": "minecraft:mul",
-                      "argument1": 8.0,
-                      "argument2": "minecraft:overworld/depth"
-                    }
-                  },
-                  "max": 64.0,
-                  "min": -64.0
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "lava": {
       "type": "minecraft:noise",
       "noise": "minecraft:aquifer_lava",
@@ -190,6 +139,67 @@
         },
         "when_out_of_range": 0.0
       }
+    },
+    "preliminary_surface_level": {
+      "type": "minecraft:find_top_surface",
+      "density": {
+        "type": "minecraft:add",
+        "argument1": {
+          "type": "minecraft:add",
+          "argument1": 0.1171875,
+          "argument2": {
+            "type": "minecraft:mul",
+            "argument1": {
+              "type": "minecraft:y_clamped_gradient",
+              "from_value": 0.0,
+              "from_y": -128,
+              "to_value": 1.0,
+              "to_y": -104
+            },
+            "argument2": {
+              "type": "minecraft:add",
+              "argument1": -0.1171875,
+              "argument2": {
+                "type": "minecraft:add",
+                "argument1": -0.078125,
+                "argument2": {
+                  "type": "minecraft:mul",
+                  "argument1": {
+                    "note": "Modified for Larion - allows terrain height to go above vanilla limits.",
+                    "type": "minecraft:y_clamped_gradient",
+                    "from_value": 1.0,
+                    "from_y": 500,
+                    "to_value": 0.0,
+                    "to_y": 512
+                  },
+                  "argument2": {
+                    "type": "minecraft:add",
+                    "argument1": 0.078125,
+                    "argument2": {
+                      "type": "minecraft:clamp",
+                      "input": {
+                        "type": "minecraft:add",
+                        "argument1": -0.129137,
+                        "argument2": {
+                          "type": "minecraft:mul",
+                          "argument1": 8.0,
+                          "argument2": "minecraft:overworld/depth"
+                        }
+                      },
+                      "max": 64.0,
+                      "min": -64.0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "argument2": -0.390625
+      },
+      "upper_bound": 512,
+      "lower_bound": -128,
+      "cell_height": 4
     }
   },
   "ore_veins_enabled": true,

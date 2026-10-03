@@ -1,6 +1,10 @@
-plugins {
-    // see https://fabricmc.net/develop/ for new versions
-    id 'fabric-loom' version '1.8-SNAPSHOT' apply false
-    // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
-    id 'net.neoforged.moddev' version '2.0.78' apply false
+tasks.register('collectJars', Copy) {
+    subprojects.each { p ->
+        dependsOn("${p.path}:jar")
+        from(p.layout.buildDirectory.dir('libs')) {
+            include '*.jar'
+            exclude '*-sources.jar'
+        }
+    }
+    into(layout.buildDirectory.dir('releases'))
 }
