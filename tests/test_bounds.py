@@ -1,7 +1,7 @@
 """Compile the actual reviewed Java math methods without Minecraft dependencies."""
 from pathlib import Path
 import re, subprocess, tempfile, sys
-r=Path(sys.argv[1] if len(sys.argv)>1 else '.').resolve()
+r=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else Path(__file__).resolve().parents[1]
 b=r/'common/src/main/java/com/badgerson/larion/density_function_types'
 def method(text,name):
     m=re.search(r'(?:public|private) double '+name+r'\([^)]*\)\s*\{',text)

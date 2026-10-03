@@ -1,7 +1,7 @@
 apply plugin: 'java-library'
-version = project.property('version')
+version = rootProject.version
 group = project.property('group')
-base { archivesName = "${mod_id}-${project.name}-${minecraft_version}" }
+base { archivesName = "${mod_id}-${project.name}" }
 def targetJavaVersion = project.property('java_version').toString().toInteger()
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
