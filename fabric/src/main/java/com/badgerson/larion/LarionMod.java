@@ -17,22 +17,22 @@ public class LarionMod implements ModInitializer {
     // project.
 
     Registry.register(BuiltInRegistries.DENSITY_FUNCTION_TYPE,
-        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "div"), Division.CODEC.codec());
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "div"), Division.CODEC);
     Registry.register(BuiltInRegistries.DENSITY_FUNCTION_TYPE,
-        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "sqrt"), Sqrt.CODEC.codec());
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "sqrt"), Sqrt.CODEC);
     Registry.register(BuiltInRegistries.DENSITY_FUNCTION_TYPE,
-        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "signum"), Signum.CODEC.codec());
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "signum"), Signum.CODEC);
     Registry.register(BuiltInRegistries.DENSITY_FUNCTION_TYPE,
-        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "sine"), Sine.CODEC.codec());
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "sine"), Sine.CODEC);
     Registry.register(BuiltInRegistries.DENSITY_FUNCTION_TYPE,
-        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "x"), XCoord.CODEC.codec());
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "x"), XCoord.CODEC);
     Registry.register(BuiltInRegistries.DENSITY_FUNCTION_TYPE,
-        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "z"), ZCoord.CODEC.codec());
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "z"), ZCoord.CODEC);
     Registry.register(BuiltInRegistries.DENSITY_FUNCTION_TYPE,
-        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "flat_domain_warp"), FlatDomainWarp.CODEC.codec());
-    Registry.register(BuiltInRegistries.MATERIAL_CONDITION,
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "flat_domain_warp"), FlatDomainWarp.CODEC);
+    Registry.register(BuiltInRegistries.MATERIAL_CONDITION_TYPE,
         Identifier.fromNamespaceAndPath(Constants.MOD_ID, "somewhat_steep"),
-        SomewhatSteepMaterialCondition.CODEC.codec());
+        SomewhatSteepMaterialCondition.CODEC);
 
     // Use Fabric to bootstrap the Common mod.
     Constants.LOG.info("Larion World Generation: Registered custom entries");

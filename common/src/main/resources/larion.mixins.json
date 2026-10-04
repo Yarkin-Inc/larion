@@ -5,9 +5,7 @@
   "compatibilityLevel": "JAVA_18",
   "mixins": [
     "NoiseChunkGeneratorMixin",
-    "SteepSlopePredicateMixin",
-    "MaterialRuleContextMixin",
-    "CaveWorldCarverMixin"
+    "SteepSlopePredicateMixin"
   ],
   "client": [],
   "server": [],

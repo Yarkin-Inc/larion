@@ -1,7 +1,7 @@
 {
   "type": "minecraft:add",
-  "argument1": -192,
-  "argument2": {
+  "left": -192,
+  "right": {
     "type": "minecraft:spline",
     "spline": {
       "coordinate": "minecraft:overworld/continents",
@@ -38,7 +38,7 @@
         },
         {
           "derivative": 0.0,
-          "location": -0.10,
+          "location": -0.1,
           "value": {
             "coordinate": "minecraft:overworld/erosion",
             "points": [
@@ -237,7 +237,7 @@
         },
         {
           "derivative": 0.0,
-          "location": 0.10,
+          "location": 0.1,
           "value": {
             "coordinate": "minecraft:overworld/erosion",
             "points": [

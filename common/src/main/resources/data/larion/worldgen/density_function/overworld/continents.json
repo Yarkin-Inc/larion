@@ -6,8 +6,8 @@
       "input": "larion:overworld/continents/shapes",
       "warp_x": {
         "type": "minecraft:mul",
-        "argument1": 800,
-        "argument2": {
+        "left": 800,
+        "right": {
           "type": "minecraft:noise",
           "noise": "larion:continents/warp_x",
           "xz_scale": 0.28,
@@ -16,8 +16,8 @@
       },
       "warp_z": {
         "type": "minecraft:mul",
-        "argument1": 800,
-        "argument2": {
+        "left": 800,
+        "right": {
           "type": "minecraft:noise",
           "noise": "larion:continents/warp_z",
           "xz_scale": 0.28,

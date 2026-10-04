@@ -215,7 +215,7 @@
               }
             },
             {
-              "location": 0.40,
+              "location": 0.4,
               "derivative": 0.0,
               "value": {
                 "coordinate": "minecraft:overworld/ridges_folded",

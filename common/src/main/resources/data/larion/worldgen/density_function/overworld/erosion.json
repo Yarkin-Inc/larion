@@ -1,6 +1,6 @@
 {
   "type": "minecraft:max",
-  "argument1": {
+  "left": {
     "type": "minecraft:spline",
     "spline": {
       "coordinate": "larion:overworld/ridges/river_tunnel",
@@ -32,9 +32,9 @@
       ]
     }
   },
-  "argument2": {
+  "right": {
     "type": "minecraft:add",
-    "argument1": {
+    "left": {
       "type": "minecraft:spline",
       "spline": {
         "coordinate": "larion:overworld/erosion/mountain_ranges",
@@ -52,7 +52,7 @@
         ]
       }
     },
-    "argument2": {
+    "right": {
       "type": "minecraft:spline",
       "spline": {
         "coordinate": "larion:overworld/erosion/eroded_zones",

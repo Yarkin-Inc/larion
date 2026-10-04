@@ -1,6 +1,6 @@
 {
-  "type": "minecraft:cache_once",
-  "argument": {
+  "type": "minecraft:cache",
+  "input": {
     "type": "minecraft:noise",
     "noise": "larion:ridges/rivers_b",
     "xz_scale": 0.15,

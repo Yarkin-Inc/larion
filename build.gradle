@@ -2,11 +2,7 @@ version = "${mod_version}+${minecraft_version}"
 
 tasks.register('collectJars', Copy) {
     subprojects.each { p ->
-        dependsOn("${p.path}:jar")
-        from(p.layout.buildDirectory.dir('libs')) {
-            include '*.jar'
-            exclude '*-sources.jar'
-        }
+        from(p.tasks.named('jar').flatMap { it.archiveFile })
     }
     into(layout.buildDirectory.dir('releases'))
 }

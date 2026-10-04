@@ -10,6 +10,17 @@ loom {
     accessWidenerPath.set(rootProject.file('common/src/main/resources/larion.accesswidener'))
     runs {
         client { runDir('run/client') }
-        server { runDir('run/server'); programArg 'nogui' }
+        server {
+            runDir(project.relativePath(file(providers.gradleProperty('serverRunDir').getOrElse('run/server'))))
+            programArg 'nogui'
+        }
     }
 }
+
+// Exercise shared density functions against vanilla Minecraft on Fabric's test classpath.
+sourceSets.test.java.srcDir rootProject.file('common/src/test/java')
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.12.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+tasks.withType(Test).configureEach { useJUnitPlatform() }

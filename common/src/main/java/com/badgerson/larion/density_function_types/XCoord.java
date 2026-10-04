@@ -2,29 +2,17 @@
 package com.badgerson.larion.density_function_types;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.util.KeyDispatchDataCodec;
-import net.minecraft.world.level.levelgen.DensityFunction;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.util.Interval;
+import net.minecraft.world.level.levelgen.densityfunction.*;
 
-public record XCoord() implements DensityFunction.SimpleFunction {
-
-    public static final KeyDispatchDataCodec<XCoord> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(new XCoord()));
-
-    @Override
-    public double compute(DensityFunction.FunctionContext context) {
-        return Math.min(Math.max(context.blockX(), minValue()), maxValue());
+public record XCoord() implements DensityFunction {
+    public static final MapCodec<XCoord> CODEC = MapCodec.unit(new XCoord());
+    @Override public DensitySampler compileSampler(CompileContext context) {
+        return (PointSampler) (samplerContext, x, y, z) -> Math.clamp(x, -30_000_000, 30_000_000);
     }
-
-    @Override
-    public double minValue() {
-        return -30_000_000;
-    }
-
-    @Override
-    public double maxValue() {
-        return 30_000_000;
-    }
-
-    public KeyDispatchDataCodec<? extends DensityFunction> codec() {
-        return CODEC;
-    }
+    @Override public DensityFunction rewriteChildren(DfRewriteRule rule) { return this; }
+    @Override public Interval range() { return Interval.of(-30_000_000, 30_000_000); }
+    @Override public int domainAxes() { return AXIS_X; }
+    @Override public MapCodec<XCoord> codec() { return CODEC; }
 }

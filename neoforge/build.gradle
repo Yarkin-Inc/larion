@@ -1,11 +1,11 @@
-plugins { id 'net.neoforged.moddev' version '2.0.141' }
+plugins { id 'net.neoforged.moddev' version '2.0.148' }
 apply from: rootProject.file('gradle/loader-common.gradle')
 neoForge {
     version = neoforge_version
     accessTransformers.from(file('src/main/resources/META-INF/accesstransformer.cfg'))
     runs {
         client { client(); gameDirectory = file('run/client') }
-        server { server(); gameDirectory = file('run/server'); programArgument 'nogui' }
+        server { server(); gameDirectory = file(providers.gradleProperty('serverRunDir').getOrElse('run/server')); programArgument 'nogui' }
     }
     mods { larion { sourceSet sourceSets.main } }
 }

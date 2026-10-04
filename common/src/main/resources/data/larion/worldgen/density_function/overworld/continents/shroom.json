@@ -1,6 +1,6 @@
 {
   "type": "minecraft:square",
-  "argument": {
+  "input": {
     "type": "minecraft:noise",
     "noise": "larion:continents/shroom",
     "xz_scale": 0.25,

@@ -2,11 +2,11 @@
   "type": "larion:sine",
   "argument": {
     "type": "minecraft:add",
-    "argument1": "larion:overworld/temperature/delta",
-    "argument2": {
+    "left": "larion:overworld/temperature/delta",
+    "right": {
       "type": "minecraft:mul",
-      "argument1": 0.5,
-      "argument2": {
+      "left": 0.5,
+      "right": {
         "type": "minecraft:noise",
         "noise": "larion:temperature/offset",
         "xz_scale": 0.25,

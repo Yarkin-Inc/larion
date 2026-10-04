@@ -1,6 +1,6 @@
 {
   "type": "minecraft:abs",
-  "argument": {
+  "input": {
     "type": "minecraft:noise",
     "noise": "larion:erosion/ranges",
     "xz_scale": 0.25,

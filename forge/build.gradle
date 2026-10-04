@@ -14,7 +14,7 @@ minecraft {
     runs {
         configureEach { args '--mixin.config=larion.mixins.json' }
         register('client') { workingDir = layout.projectDirectory.dir('run/client') }
-        register('server') { workingDir = layout.projectDirectory.dir('run/server'); args '--nogui' }
+        register('server') { workingDir = file(providers.gradleProperty('serverRunDir').getOrElse('run/server')); args '--nogui' }
     }
 }
 repositories {

@@ -2,51 +2,27 @@ package com.badgerson.larion.density_function_types;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.KeyDispatchDataCodec;
-import net.minecraft.world.level.levelgen.DensityFunction;
-import net.minecraft.world.level.levelgen.DensityFunctions;
+import net.minecraft.util.Interval;
+import net.minecraft.world.level.levelgen.densityfunction.*;
 
-public record FlatDomainWarp(DensityFunction input, DensityFunction warpX, DensityFunction warpZ)
-		implements DensityFunction {
+public record FlatDomainWarp(DensityFunction input, DensityFunction warpX, DensityFunction warpZ) implements DensityFunction {
+    public static final MapCodec<FlatDomainWarp> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        DensityFunction.CODEC.fieldOf("input").forGetter(FlatDomainWarp::input),
+        DensityFunction.CODEC.fieldOf("warp_x").forGetter(FlatDomainWarp::warpX),
+        DensityFunction.CODEC.fieldOf("warp_z").forGetter(FlatDomainWarp::warpZ)).apply(instance, FlatDomainWarp::new));
 
-	private static final MapCodec<FlatDomainWarp> MAP_CODEC = RecordCodecBuilder.mapCodec((instance) -> instance
-			.group(DensityFunction.HOLDER_HELPER_CODEC.fieldOf("input").forGetter(FlatDomainWarp::input),
-					DensityFunction.HOLDER_HELPER_CODEC.fieldOf("warp_x").forGetter(FlatDomainWarp::warpX),
-					DensityFunction.HOLDER_HELPER_CODEC.fieldOf("warp_z").forGetter(FlatDomainWarp::warpZ))
-			.apply(instance, (FlatDomainWarp::new)));
-	public static final KeyDispatchDataCodec<FlatDomainWarp> CODEC = DensityFunctions.makeCodec(MAP_CODEC);
-
-	@Override
-	public double compute(FunctionContext context) {
-		return input.compute(new SinglePointContext(
-				context.blockX() + (int) this.warpX.compute(context),
-				context.blockY(),
-				context.blockZ() + (int) this.warpZ.compute(context)));
-	}
-
-	@Override
-	public void fillArray(double[] densities, ContextProvider provider) {
-		provider.fillAllDirectly(densities, this);
-	}
-
-	@Override
-	public DensityFunction mapAll(Visitor visitor) {
-		return visitor.apply(
-				new FlatDomainWarp(this.input.mapAll(visitor), this.warpX.mapAll(visitor), this.warpZ.mapAll(visitor)));
-	}
-
-	@Override
-	public double minValue() {
-		return this.input.minValue();
-	}
-
-	@Override
-	public double maxValue() {
-		return this.input.maxValue();
-	}
-
-	@Override
-	public KeyDispatchDataCodec<? extends DensityFunction> codec() {
-		return CODEC;
-	}
+    @Override public DensitySampler compileSampler(CompileContext context) {
+        DensitySampler source = input.compileSampler(context);
+        DensitySampler xWarp = warpX.compileSampler(context);
+        DensitySampler zWarp = warpZ.compileSampler(context);
+        return (PointSampler) (samplerContext, x, y, z) -> source.sampleValue(samplerContext,
+            x + (int) xWarp.sampleValue(samplerContext, x, y, z), y,
+            z + (int) zWarp.sampleValue(samplerContext, x, y, z));
+    }
+    @Override public DensityFunction rewriteChildren(DfRewriteRule rule) {
+        return new FlatDomainWarp(rule.rewrite(input), rule.rewrite(warpX), rule.rewrite(warpZ));
+    }
+    @Override public Interval range() { return input.range(); }
+    @Override public int domainAxes() { return input.domainAxes() | warpX.domainAxes() | warpZ.domainAxes(); }
+    @Override public MapCodec<FlatDomainWarp> codec() { return CODEC; }
 }

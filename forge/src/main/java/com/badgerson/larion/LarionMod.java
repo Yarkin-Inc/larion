@@ -1,8 +1,8 @@
 package com.badgerson.larion;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.levelgen.DensityFunction;
-import net.minecraft.world.level.levelgen.SurfaceRules.ConditionSource;
+import net.minecraft.world.level.levelgen.densityfunction.DensityFunction;
+import net.minecraft.world.level.levelgen.material.condition.MaterialCondition;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -19,45 +19,45 @@ public class LarionMod {
 
 	public static final RegistryObject<MapCodec<? extends DensityFunction>> DIV = DENSITY_FUNCTION_TYPES.register("div",
 			() -> {
-				return Division.CODEC.codec();
+				return Division.CODEC;
 			});
 
 	public static final RegistryObject<MapCodec<? extends DensityFunction>> SQRT = DENSITY_FUNCTION_TYPES
 			.register("sqrt", () -> {
-				return Sqrt.CODEC.codec();
+				return Sqrt.CODEC;
 			});
 
 	public static final RegistryObject<MapCodec<? extends DensityFunction>> SIGNUM = DENSITY_FUNCTION_TYPES
 			.register("signum", () -> {
-				return Signum.CODEC.codec();
+				return Signum.CODEC;
 			});
 
 	public static final RegistryObject<MapCodec<? extends DensityFunction>> SINE = DENSITY_FUNCTION_TYPES
 			.register("sine", () -> {
-				return Sine.CODEC.codec();
+				return Sine.CODEC;
 			});
 
 	public static final RegistryObject<MapCodec<? extends DensityFunction>> X_COORD = DENSITY_FUNCTION_TYPES
 			.register("x", () -> {
-				return XCoord.CODEC.codec();
+				return XCoord.CODEC;
 			});
 
 	public static final RegistryObject<MapCodec<? extends DensityFunction>> Z_COORD = DENSITY_FUNCTION_TYPES
 			.register("z", () -> {
-				return ZCoord.CODEC.codec();
+				return ZCoord.CODEC;
 			});
 
 	public static final RegistryObject<MapCodec<? extends DensityFunction>> FLAT_DOMAIN_WARP = DENSITY_FUNCTION_TYPES
 			.register("flat_domain_warp", () -> {
-				return FlatDomainWarp.CODEC.codec();
+				return FlatDomainWarp.CODEC;
 			});
 
-	private static final DeferredRegister<MapCodec<? extends ConditionSource>> MATERIAL_CONDITIONS = DeferredRegister
-			.create(Registries.MATERIAL_CONDITION, Constants.MOD_ID);
+	private static final DeferredRegister<MapCodec<? extends MaterialCondition>> MATERIAL_CONDITIONS = DeferredRegister
+			.create(Registries.MATERIAL_CONDITION_TYPE, Constants.MOD_ID);
 
-	public static final RegistryObject<MapCodec<? extends ConditionSource>> SOMEWHAT_STEEP = MATERIAL_CONDITIONS
+	public static final RegistryObject<MapCodec<? extends MaterialCondition>> SOMEWHAT_STEEP = MATERIAL_CONDITIONS
 			.register("somewhat_steep", () -> {
-				return SomewhatSteepMaterialCondition.CODEC.codec();
+				return SomewhatSteepMaterialCondition.CODEC;
 			});
 
 	public LarionMod(FMLJavaModLoadingContext context) {

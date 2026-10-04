@@ -1,14 +1,16 @@
 {
-  "type": "minecraft:cache_once",
-  "argument": {
+  "type": "minecraft:cache",
+  "input": {
     "type": "minecraft:add",
-    "argument1": {
-      "type": "minecraft:y_clamped_gradient",
+    "left": {
+      "type": "minecraft:gradient",
       "from_value": 1.25,
-      "from_y": -128,
       "to_value": -1.25,
-      "to_y": 512
+      "axis": "y",
+      "tiling": "clamp_to_edge",
+      "from_coordinate": -128,
+      "to_coordinate": 512
     },
-    "argument2": "larion:overworld/terrain/offset"
+    "right": "larion:overworld/terrain/offset"
   }
 }

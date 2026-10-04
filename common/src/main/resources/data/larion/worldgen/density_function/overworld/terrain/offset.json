@@ -1,18 +1,23 @@
 {
-  "type": "minecraft:flat_cache",
-  "argument": {
-    "type": "minecraft:cache_2d",
-    "argument": {
-      "type": "minecraft:mul",
-      "note": "Depth range divided by world height in blocks",
-      "argument1": 0.00390625,
-      "argument2": {
-        "type": "minecraft:add",
-        "argument1": -0.3168897689123,
-        "argument2": {
+  "type": "minecraft:cache",
+  "input": {
+    "type": "minecraft:slice",
+    "axis": "y",
+    "coordinate": 0,
+    "input": {
+      "type": "minecraft:cache",
+      "input": {
+        "type": "minecraft:mul",
+        "note": "Depth range divided by world height in blocks",
+        "left": 0.00390625,
+        "right": {
           "type": "minecraft:add",
-          "argument1": "larion:overworld/terrain/base_height",
-          "argument2": "larion:overworld/terrain/features"
+          "left": -0.3168897689123,
+          "right": {
+            "type": "minecraft:add",
+            "left": "larion:overworld/terrain/base_height",
+            "right": "larion:overworld/terrain/features"
+          }
         }
       }
     }
