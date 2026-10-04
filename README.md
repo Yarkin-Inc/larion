@@ -1,8 +1,8 @@
 ![Larion project logo](images/larion_logo.png)
 
-# Larion World Generation, for Minecraft 1.20-1.21.1 & 26.1.2
+# Larion World Generation, for Minecraft 1.20-1.21.1 & 26.2
 
-Originally created by **Badgerson**. The Minecraft **26.1.2** port is maintained by **Yarkin**.
+Originally created by **Badgerson**. The Minecraft **26.2** port is maintained by **Yarkin**.
 
 Larion is a terrain generation mod that overhauls the style and layout of world generation in a modern-vanilla-like "epic fantasy" style favoring otherworldly, dreamlike vistas.
 

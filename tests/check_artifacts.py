@@ -24,6 +24,13 @@ for loader in ('fabric','neoforge','forge'):
         for n in names:
             if n.endswith('.json'):
                 json.loads(z.read(n));assert b'${' not in z.read(n),(loader,n)
+        pack=json.loads(z.read('pack.mcmeta'))['pack']
+        assert pack['min_format']==[107,1] and pack['max_format']==[107,1]
+        spaghetti=json.loads(z.read('data/minecraft/worldgen/density_function/overworld/caves/spaghetti_2d.json'))
+        rarity=spaghetti['input']['argument1']['argument1']
+        assert rarity['type']=='minecraft:abs'
+        assert rarity['argument']['type']=='minecraft:interval_select'
+        assert rarity['argument']['thresholds']==[-0.75,-0.5,0.5,0.75]
         dim=json.loads(z.read('data/minecraft/dimension_type/overworld.json'))
         assert (dim['min_y'],dim['height'],dim['logical_height'])==(-128,640,640)
         assert dim['attributes']['minecraft:visual/fog_color']=='#c0d8ff'

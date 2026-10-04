@@ -32,7 +32,7 @@ public class LarionMod implements ModInitializer {
         Identifier.fromNamespaceAndPath(Constants.MOD_ID, "flat_domain_warp"), FlatDomainWarp.CODEC.codec());
     Registry.register(BuiltInRegistries.MATERIAL_CONDITION,
         Identifier.fromNamespaceAndPath(Constants.MOD_ID, "somewhat_steep"),
-        SomewhatSteepMaterialCondition.CODEC.codec());
+        SomewhatSteepMaterialCondition.CODEC);
 
     // Use Fabric to bootstrap the Common mod.
     Constants.LOG.info("Larion World Generation: Registered custom entries");

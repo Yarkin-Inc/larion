@@ -9,7 +9,7 @@ import net.minecraft.world.level.levelgen.DensityFunctions;
 
 public record Signum(DensityFunction df) implements DensityFunctions.PureTransformer {
 
-    private static final MapCodec<Signum> MAP_CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(DensityFunction.HOLDER_HELPER_CODEC.fieldOf("argument").forGetter(Signum::df)).apply(instance, (Signum::new)));
+    private static final MapCodec<Signum> MAP_CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(DensityFunction.CODEC.fieldOf("argument").forGetter(Signum::df)).apply(instance, (Signum::new)));
     public static final KeyDispatchDataCodec<Signum> CODEC = DensityFunctions.makeCodec(MAP_CODEC);
 
     @Override
@@ -23,8 +23,8 @@ public record Signum(DensityFunction df) implements DensityFunctions.PureTransfo
     }
 
     @Override
-    public DensityFunction mapAll(Visitor visitor) {
-        return new Signum(this.df.mapAll(visitor));
+    public DensityFunction mapChildren(Visitor visitor) {
+        return new Signum(visitor.apply(this.df));
     }
 
     @Override

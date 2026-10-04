@@ -10,9 +10,9 @@ public record FlatDomainWarp(DensityFunction input, DensityFunction warpX, Densi
 		implements DensityFunction {
 
 	private static final MapCodec<FlatDomainWarp> MAP_CODEC = RecordCodecBuilder.mapCodec((instance) -> instance
-			.group(DensityFunction.HOLDER_HELPER_CODEC.fieldOf("input").forGetter(FlatDomainWarp::input),
-					DensityFunction.HOLDER_HELPER_CODEC.fieldOf("warp_x").forGetter(FlatDomainWarp::warpX),
-					DensityFunction.HOLDER_HELPER_CODEC.fieldOf("warp_z").forGetter(FlatDomainWarp::warpZ))
+			.group(DensityFunction.CODEC.fieldOf("input").forGetter(FlatDomainWarp::input),
+					DensityFunction.CODEC.fieldOf("warp_x").forGetter(FlatDomainWarp::warpX),
+					DensityFunction.CODEC.fieldOf("warp_z").forGetter(FlatDomainWarp::warpZ))
 			.apply(instance, (FlatDomainWarp::new)));
 	public static final KeyDispatchDataCodec<FlatDomainWarp> CODEC = DensityFunctions.makeCodec(MAP_CODEC);
 
@@ -30,9 +30,8 @@ public record FlatDomainWarp(DensityFunction input, DensityFunction warpX, Densi
 	}
 
 	@Override
-	public DensityFunction mapAll(Visitor visitor) {
-		return visitor.apply(
-				new FlatDomainWarp(this.input.mapAll(visitor), this.warpX.mapAll(visitor), this.warpZ.mapAll(visitor)));
+	public DensityFunction mapChildren(Visitor visitor) {
+		return new FlatDomainWarp(visitor.apply(this.input), visitor.apply(this.warpX), visitor.apply(this.warpZ));
 	}
 
 	@Override

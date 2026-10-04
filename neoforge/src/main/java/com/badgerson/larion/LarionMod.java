@@ -58,7 +58,7 @@ public class LarionMod {
 
 	public static final Supplier<MapCodec<? extends ConditionSource>> SOMEWHAT_STEEP = MATERIAL_CONDITIONS
 			.register("somewhat_steep", () -> {
-				return SomewhatSteepMaterialCondition.CODEC.codec();
+				return SomewhatSteepMaterialCondition.CODEC;
 			});
 
 	public LarionMod(IEventBus eventBus) {
